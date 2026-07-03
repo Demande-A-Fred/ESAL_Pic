@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Générateur de Signature ÉSAL</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 40px;
+            background-color: #f4f4f4;
+            display: flex;
+            gap: 40px;
+            align-items: flex-start;
+        }
+
+        /* Style du panneau de formulaire */
+        #form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #333;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Style du panneau de prévisualisation */
+        #preview-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        #copy-btn {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #5412fa;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: background-color 0.2s;
+        }
+
+        #copy-btn:hover {
+            background-color: #3b0cd0;
+        }
+
+        #preview-container {
+            background: white;
+            padding: 30px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="form-container">
+        <h2 style="margin-top: 0;">Vos informations</h2>
+
+        <div class="form-group">
+            <label for="input-prenom">Prénom</label>
+            <input type="text" id="input-prenom" placeholder="Ex: Jeanne">
+        </div>
+
+        <div class="form-group">
+            <label for="input-nom">Nom</label>
+            <input type="text" id="input-nom" placeholder="Ex: Dupont">
+        </div>
+        <div class="form-group">
+            <label for="input-email">Email (modifiable si cas particulier)</label>
+            <input type="text" id="input-email" placeholder="Ex: jdupont@esalorraine.fr">
+        </div>
+        <div class="form-group">
+            <label for="input-fonction">Fonction</label>
+            <input type="text" id="input-fonction"
+                value="Professeur d'enseignement artistique">
+        </div>
+
+        <div class="form-group">
+            <label for="input-tel">Téléphone</label>
+            <input type="text" id="input-tel" placeholder="Ex: 06 12 34 56 78">
+        </div>
+
+        <div class="form-group">
+            <label for="input-site">Site de rattachement</label>
+            <select id="input-site">
+                <option value="metz">Pôle arts plastiques Metz</option>
+                <option value="epcc">EPCC (Siège)</option>
+                <option value="epinal">Pôle arts plastiques Épinal</option>
+                <option value="pmd">Pôle musique et danse</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="preview-section">
+        <button id="copy-btn">Copier la signature</button>
+        <div id="preview-container">
+        </div>
+    </div>
+
+    <script>
+        // 1. Base de données des adresses selon les sites
+        const siteData = {
+            epcc: {
+                ligne1: "École Supérieure d’Art de Lorraine <b>|</b> EPCC ÉSAL Metz – Épinal",
+                ligne2: "Siège <b>|</b> 1, rue de la Citadelle, 57000 Metz – FR",
+                ligne3: "+33 3 87 39 61 30 <b>|</b> <a href=\"mailto:metz@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>metz@esalorraine.fr</u></a>"
+            },
+            metz: {
+                ligne1: "École Supérieure d’Art de Lorraine <b>|</b> EPCC ÉSAL Metz – Épinal",
+                ligne2: "Pôle arts plastiques, Metz <b>|</b> 1, rue de la Citadelle, 57000 Metz – FR",
+                ligne3: "03 87 39 61 30 <b>|</b> <a href=\"mailto:metz@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>metz@esalorraine.fr</u></a>"
+            },
+            epinal: {
+                ligne1: "École Supérieure d’Art de Lorraine <b>|</b> EPCC ESAL Metz – Épinal",
+                ligne2: "Pôle arts plastiques, Épinal <b>|</b> 15, rue des jardiniers, 88000 Épinal — FR",
+                ligne3: "03 29 68 50 66 <b>|</b> <a href=\"mailto:epinal@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>epinal@esalorraine.fr</u></a>"
+            },
+            pmd: {
+                ligne1: "École Supérieure d’Art de Lorraine <b>|</b> EPCC ESAL Metz – Épinal",
+                ligne2: "Pôle musique et danse <b>|</b> 2, rue du Paradis, 57000 Metz — FR",
+                ligne3: "+33 3 87 74 28 38 <b>|</b> <a href=\"mailto:pmd@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>pmd@esalorraine.fr</u></a>"
+            }
+        };
+
+        // 2. Fonction pour nettoyer les chaînes (pour l'email)
+        function cleanString(str) {
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/\s+/g, '-');
+        }
+
+        // Génération de l'email : Initiales du prénom + nom complet (sans accents/espaces)
+        function generateEmail(prenom, nom) {
+            if (!prenom && !nom) return "";
+            // Récupère la première lettre de chaque partie du prénom séparée par un espace ou tiret
+            const initials = prenom.split(/[- ]+/).map(p => p.charAt(0)).join('');
+            // Nettoie et enlève tous les caractères qui ne sont pas des lettres
+            const cleanStr = (str) => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+            const prefix = cleanStr(initials + nom).replace(/[^a-z0-9]/g, '');
+            return `${prefix}@esalorraine.fr`;
+        }
+
+        // Formatage du téléphone : passage au +33 et espacement
+        function formatPhone(tel) {
+            if (!tel) return "";
+            // Garde uniquement les chiffres
+            let digits = tel.replace(/\D/g, '');
+            // Remplace le 0 initial par 33
+            if (digits.startsWith('0')) {
+                digits = '33' + digits.substring(1);
+            }
+            // Applique le formatage +33 X XX XX XX XX si c'est un numéro français standard (11 chiffres)
+            if (digits.length === 11 && digits.startsWith('33')) {
+                return `+${digits.substring(0, 2)} ${digits.substring(2, 3)} ${digits.substring(3, 5)} ${digits.substring(5, 7)} ${digits.substring(7, 9)} ${digits.substring(9, 11)}`;
+            }
+            // Si le numéro n'est pas standard (étranger, trop court), on le renvoie tel quel
+            return tel;
+        }
+
+
+        // 3. Fonction principale de génération du HTML
+        function updateSignature() {
+            // Récupération des valeurs
+          const prenom = document.getElementById('input-prenom').value || "Prénom";
+const nom = document.getElementById('input-nom').value || "Nom";
+const fonction = document.getElementById('input-fonction').value || "Fonction officielle";
+const email = document.getElementById('input-email').value || "pnom@esalorraine.fr";
+const tel = formatPhone(document.getElementById('input-tel').value);
+const siteKey = document.getElementById('input-site').value;
+
+const telString = tel ? ` <b>|</b> ${tel}` : "";
+// ... le reste du code (siteData et htmlTemplate) ne change pas !
+            const site = siteData[siteKey];
+
+            // Le Template HTML pur (sans ID)
+            const htmlTemplate = `
+            <table border="0" cellpadding="0" cellspacing="0" style="border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; text-align: left; background-color: #ffffff; color: #000000;">
+                <tbody>
+                    <tr>
+                        <td rowspan="2" valign="middle" style="width: 198px; padding-right: 7px; padding-left: 7px;">
+                            <img src="https://github.com/Demande-A-Fred/ESAL_Pic/blob/main/ESAL.gif?raw=true" alt="Logo École Supérieure d'Art de Lorraine" width="152" style="width: 152px; display: block; border: none; margin: 0;">
+                        </td>
+                        <td valign="top" style="width: 460px; padding-right: 7px; padding-left: 7px;">
+                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne', sans-serif; font-size: 12px; color: #000000;">
+                                <b>${prenom} ${nom} | ${fonction}</b>
+                            </p>
+                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne', sans-serif; font-size: 12px; color: #000000;">
+                                <b><a href="mailto:${email}" style="color: #000000; text-decoration: none;">${email}</a>${telString}</b>
+                            </p>
+                            <p style="margin: 5px 0 10px 0; font-family: 'Messine Quotidienne', sans-serif; font-size: 9px; color: #666666;">
+                                <i>Afin de préserver notre environnement, merci de n’imprimer ou d’archiver ce mail qu’en cas de nécessité.</i>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top" style="width: 460px; padding-right: 7px; padding-left: 7px;">
+                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne', sans-serif; font-size: 12px; color: #000000;">
+                                ${site.ligne1}
+                            </p>
+                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne', sans-serif; font-size: 12px; color: #000000;">
+                                ${site.ligne2}
+                            </p>
+                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne', sans-serif; font-size: 12px; color: #000000;">
+                                ${site.ligne3}
+                            </p>
+                            <p style="margin: 0; font-family: 'Messine Quotidienne', sans-serif; font-size: 12px; color: #000000;">
+                                <a href="http://www.esalorraine.fr/" style="color: #000000; text-decoration: none;"><u>www.esalorraine.fr</u></a> <b>|</b> <a href="http://eepurl.com/c9fBQP" style="color: #000000; text-decoration: none;"><u>Newsletter</u></a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="middle" style="width: 198px; padding-right: 7px; padding-left: 7px; padding-top: 10px;">
+                            <a href="https://www.instagram.com/esalorraine_metz/" target="_blank" style="text-decoration: none;">
+                                <img src="https://github.com/Demande-A-Fred/ESAL_Pic/blob/main/instagram.png?raw=true" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+                            </a>
+                            <a href="https://www.facebook.com/ecolesuperieuredartdelorraine" target="_blank" style="text-decoration: none;">
+                                <img src="https://github.com/Demande-A-Fred/ESAL_Pic/blob/main/facebook.png?raw=true" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+                            </a>
+                            <a href="https://www.linkedin.com/school/ecole-superieure-dart-de-lorraine/" target="_blank" style="text-decoration: none;">
+                                <img src="https://github.com/Demande-A-Fred/ESAL_Pic/blob/main/linkedin.png?raw=true" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+                            </a>
+                            <a href="https://www.youtube.com/@esalorraine/videos" target="_blank" style="text-decoration: none;">
+                                <img src="https://github.com/Demande-A-Fred/ESAL_Pic/blob/main/youtube.png?raw=true" width="28" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+                            </a>
+                            <a href="https://vimeo.com/esal" target="_blank" style="text-decoration: none;">
+                                <img src="https://github.com/Demande-A-Fred/ESAL_Pic/blob/main/vimeo.png?raw=true" width="20" height="20" style="display: inline-block; border: none;">
+                            </a>
+                        </td>
+                        <td style="width: 460px;"></td>
+                    </tr>
+                </tbody>
+            </table>`;
+
+            // Injection dans le DOM
+            document.getElementById('preview-container').innerHTML = htmlTemplate;
+        }
+
+        let emailEdited = false; // Drapeau pour savoir si l'utilisateur a forcé une adresse
+
+        // On met à jour la signature à chaque changement sur n'importe quel champ
+        document.querySelectorAll('input, select').forEach(element => {
+            element.addEventListener('input', (e) => {
+                // Si l'utilisateur tape manuellement dans le champ email, on lève le drapeau
+                if (e.target.id === 'input-email') {
+                    emailEdited = true;
+                }
+                // Si c'est le prénom ou le nom qui change, ET qu'on n'a pas forcé l'email à la main
+                else if ((e.target.id === 'input-prenom' || e.target.id === 'input-nom') && !emailEdited) {
+                    const p = document.getElementById('input-prenom').value;
+                    const n = document.getElementById('input-nom').value;
+                    document.getElementById('input-email').value = generateEmail(p, n);
+                }
+
+                updateSignature();
+            });
+        });
+
+        // 5. Initialisation au premier chargement
+        updateSignature();
+
+        // 6. Logique de copie (identique à avant)
+        document.getElementById('copy-btn').addEventListener('click', async () => {
+            const container = document.getElementById('preview-container');
+            const htmlContent = container.innerHTML;
+            const textContent = container.innerText;
+
+            try {
+                const htmlBlob = new Blob([htmlContent], { type: 'text/html' });
+                const textBlob = new Blob([textContent], { type: 'text/plain' });
+
+                const data = [new ClipboardItem({
+                    'text/html': htmlBlob,
+                    'text/plain': textBlob
+                })];
+
+                await navigator.clipboard.write(data);
+
+                const btn = document.getElementById('copy-btn');
+                const originalText = btn.innerText;
+                btn.innerText = "✓ Copiée avec succès !";
+                btn.style.backgroundColor = "#28a745";
+
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.backgroundColor = "#5412fa";
+                }, 3000);
+
+            } catch (err) {
+                console.error("Échec de la copie : ", err);
+                alert("Erreur lors de la copie.");
+            }
+        });
+    </script>
+</body>
+
+</html>
