@@ -97,14 +97,20 @@
         </div>
         <div class="form-group">
             <label for="input-fonction">Fonction</label>
-            <input type="text" id="input-fonction"
-                value="Professeur d'enseignement artistique">
+            <input type="text" id="input-fonction" value="Professeur d'enseignement artistique">
+        </div>
+
+
+        <div class="form-group">
+            <label for="input-tel">Téléphone principal (Optionnel)</label>
+            <input type="text" id="input-tel" placeholder="Ex: 0612345678 (sera converti en +33 x xx xx xx xx)">
         </div>
 
         <div class="form-group">
-            <label for="input-tel">Téléphone</label>
-            <input type="text" id="input-tel" placeholder="Ex: 0612345678 (sera converti en +33 x xx xx xx xx)">
+            <label for="input-tel2">Téléphone secondaire (Optionnel)</label>
+            <input type="text" id="input-tel2" placeholder="Ex: 0612345678 (sera converti en +33 x xx xx xx xx)">
         </div>
+
 
         <div class="form-group">
             <label for="input-site">Site de rattachement</label>
@@ -115,16 +121,18 @@
                 <option value="pmd">Pôle musique et danse</option>
             </select>
         </div>
-            <div>
-        <!-- Bouton de diagnostic -->
-<button id="check-font-btn" style="margin-top: 20px; padding: 10px 15px; font-size: 14px; background-color: #c7c7c7; color: rgb(0, 0, 0); border: none; border-radius: 5px; cursor: pointer;">
-    🔍 Vérifier l'installation de la typo "Messine"
-</button>
+        <div>
+            <!-- Bouton de diagnostic -->
+            <button id="check-font-btn"
+                style="margin-top: 20px; padding: 10px 15px; font-size: 14px; background-color: #c7c7c7; color: rgb(0, 0, 0); border: none; border-radius: 5px; cursor: pointer;">
+                🔍 Vérifier l'installation de la typo "Messine"
+            </button>
 
-<!-- Zone où le résultat s'affichera (masquée par défaut) -->
-<div id="font-result" style="margin-top: 15px; padding: 15px; background: #fff; border: 1px solid #ccc; border-radius: 5px; display: none; font-size: 14px;">
-</div>
-    </div>
+            <!-- Zone où le résultat s'affichera (masquée par défaut) -->
+            <div id="font-result"
+                style="margin-top: 15px; padding: 15px; background: #fff; border: 1px solid #ccc; border-radius: 5px; display: none; font-size: 14px;">
+            </div>
+        </div>
     </div>
 
     <div id="preview-section">
@@ -139,22 +147,90 @@
             epcc: {
                 ligne1: "École Supérieure d’Art de Lorraine <b>|</b> EPCC ÉSAL Metz – Épinal",
                 ligne2: "Siège <b>|</b> 1, rue de la Citadelle, 57000 Metz – FR",
-                ligne3: "+33 3 87 39 61 30 <b>|</b> <a href=\"mailto:metz@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>metz@esalorraine.fr</u></a>"
+                ligne3: "+33 3 87 39 61 30 <b>|</b> <a href=\"mailto:metz@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>metz@esalorraine.fr</u></a>",
+                reseaux: `
+            <a href="https://www.instagram.com/esalorraine_metz/" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/instagram.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://www.facebook.com/ecolesuperieuredartdelorraine" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/facebook.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://www.linkedin.com/school/ecole-superieure-dart-de-lorraine/" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/linkedin.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://www.youtube.com/@esalorraine/videos" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/youtube.png" width="28" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://vimeo.com/esal" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/vimeo.png" width="20" height="20" style="display: inline-block; border: none;">
+            </a>
+        `
             },
             metz: {
                 ligne1: "École Supérieure d’Art de Lorraine <b>|</b> EPCC ÉSAL Metz – Épinal",
                 ligne2: "Pôle arts plastiques, Metz <b>|</b> 1, rue de la Citadelle, 57000 Metz – FR",
-                ligne3: "+33 3 87 39 61 30 <b>|</b> <a href=\"mailto:metz@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>metz@esalorraine.fr</u></a>"
+                ligne3: "+33 3 87 39 61 30 <b>|</b> <a href=\"mailto:metz@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>metz@esalorraine.fr</u></a>",
+                reseaux: `
+            <a href="https://www.instagram.com/esalorraine_metz/" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/instagram.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://www.facebook.com/ecolesuperieuredartdelorraine" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/facebook.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://www.linkedin.com/school/ecole-superieure-dart-de-lorraine/" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/linkedin.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://www.youtube.com/@esalorraine/videos" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/youtube.png" width="28" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://vimeo.com/esal" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/vimeo.png" width="20" height="20" style="display: inline-block; border: none;">
+            </a>
+        `
             },
             epinal: {
                 ligne1: "École Supérieure d’Art de Lorraine <b>|</b> EPCC ESAL Metz – Épinal",
                 ligne2: "Pôle arts plastiques, Épinal <b>|</b> 15, rue des jardiniers, 88000 Épinal — FR",
-                ligne3: "+33 3 29 68 50 66 <b>|</b> <a href=\"mailto:epinal@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>epinal@esalorraine.fr</u></a>"
+                ligne3: "+33 3 29 68 50 66 <b>|</b> <a href=\"mailto:epinal@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>epinal@esalorraine.fr</u></a>",
+                reseaux: `
+            <a href="https://www.instagram.com/esalorraine_epinal/" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/instagram.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://www.facebook.com/ecolesuperieuredartdelorraine" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/facebook.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://www.linkedin.com/school/ecole-superieure-dart-de-lorraine/" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/linkedin.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://www.youtube.com/@esalorraine/videos" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/youtube.png" width="28" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://vimeo.com/esal" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/vimeo.png" width="20" height="20" style="display: inline-block; border: none;">
+            </a>
+        `
             },
             pmd: {
                 ligne1: "École Supérieure d’Art de Lorraine <b>|</b> EPCC ESAL Metz – Épinal",
                 ligne2: "Pôle musique et danse <b>|</b> 2, rue du Paradis, 57000 Metz — FR",
-                ligne3: "+33 3 87 74 28 38 <b>|</b> <a href=\"mailto:pmd@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>pmd@esalorraine.fr</u></a>"
+                ligne3: "+33 3 87 74 28 38 <b>|</b> <a href=\"mailto:pmd@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>pmd@esalorraine.fr</u></a>",
+                reseaux: `
+            <a href="https://www.instagram.com/esalorraine_metz/" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/instagram.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://www.facebook.com/ecolesuperieuredartdelorraine" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/facebook.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://www.linkedin.com/school/ecole-superieure-dart-de-lorraine/" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/linkedin.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://www.youtube.com/@esalorraine/videos" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/youtube.png" width="28" height="20" style="display: inline-block; border: none; margin-right: 3px;">
+            </a>
+            <a href="https://vimeo.com/esal" target="_blank" style="text-decoration: none;">
+                <img src="https://demande-a-fred.github.io/ESAL_Pic/vimeo.png" width="20" height="20" style="display: inline-block; border: none;">
+            </a>
+        `
             }
         };
 
@@ -195,16 +271,46 @@
         // 3. Fonction principale de génération du HTML
         function updateSignature() {
             // Récupération des valeurs
-          const prenom = document.getElementById('input-prenom').value || "Prénom";
-const nom = document.getElementById('input-nom').value || "Nom";
-const fonction = document.getElementById('input-fonction').value || "Fonction officielle";
-const email = document.getElementById('input-email').value || "pnom@esalorraine.fr";
-const tel = formatPhone(document.getElementById('input-tel').value);
-const siteKey = document.getElementById('input-site').value;
+            const prenom = document.getElementById('input-prenom').value || "Prénom";
+            const nom = document.getElementById('input-nom').value || "Nom";
+            const fonction = document.getElementById('input-fonction').value || "Fonction officielle";
+            const email = document.getElementById('input-email').value || "pnom@esalorraine.fr";
+            const tel1 = formatPhone(document.getElementById('input-tel').value);
+            const tel2 = formatPhone(document.getElementById('input-tel2').value);
+            const siteKey = document.getElementById('input-site').value;
 
-const telString = tel ? ` <b>|</b> ${tel}` : "";
-// ... le reste du code (siteData et htmlTemplate) ne change pas !
+            //  const telString = tel ? ` <b>|</b> ${tel}` : "";
+            // ... le reste du code (siteData et htmlTemplate) ne change pas !
             const site = siteData[siteKey];
+
+            let contactBlock = "";
+            if (tel1 && tel2) {
+                // Cas : 2 numéros (Email sur ligne 1, Numéros sur ligne 2)
+                contactBlock = `
+        <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', sans-serif; font-size: 12px; color: #000000; font-weight:bolder;">
+            <a href="mailto:${email}" style="color: #000000; text-decoration: none;">${email}</a>
+        </p>
+        <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', sans-serif; font-size: 12px; color: #000000; font-weight:bolder;">
+            ${tel1} | ${tel2}
+        </p>
+    `;
+            } else if (tel1 || tel2) {
+                // Cas : 1 seul numéro (Tout sur 1 ligne)
+                const singleTel = tel1 || tel2;
+                contactBlock = `
+        <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', sans-serif; font-size: 12px; color: #000000; font-weight:bolder;">
+            <a href="mailto:${email}" style="color: #000000; text-decoration: none;">${email}</a> | ${singleTel}
+        </p>
+    `;
+            } else {
+                // Cas : 0 numéro (Juste l'email)
+                contactBlock = `
+        <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', sans-serif; font-size: 12px; color: #000000; font-weight:bolder;">
+            <a href="mailto:${email}" style="color: #000000; text-decoration: none;">${email}</a>
+        </p>
+    `;
+            }
+
 
             // Le Template HTML pur (sans ID)
             const htmlTemplate = `
@@ -218,9 +324,7 @@ const telString = tel ? ` <b>|</b> ${tel}` : "";
                             <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', sans-serif; font-size: 12px; color: #000000;font-weight:bolder">
                                 ${prenom} ${nom} | ${fonction}
                             </p>
-                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', sans-serif; font-size: 12px; color: #000000;font-weight:bolder">
-                                <a href="mailto:${email}" style="color: #000000; text-decoration: none;">${email}</a>${telString}
-                            </p>
+                            ${contactBlock}
                             <p style="margin: 5px 0 10px 0; font-family: 'Messine Quotidienne Italique', sans-serif; font-size: 9px; color: #666666; font-style:italic;">
                                 Afin de préserver notre environnement, merci de n’imprimer ou d’archiver ce mail qu’en cas de nécessité.
                             </p>
@@ -244,22 +348,8 @@ const telString = tel ? ` <b>|</b> ${tel}` : "";
                     </tr>
                     <tr>
                         <td valign="middle" style="width: 198px; padding-right: 7px; padding-left: 7px; padding-top: 10px;">
-                            <a href="https://www.instagram.com/esalorraine_metz/" target="_blank" style="text-decoration: none;">
-                                <img src="https://demande-a-fred.github.io/ESAL_Pic/instagram.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
-                            </a>
-                            <a href="https://www.facebook.com/ecolesuperieuredartdelorraine" target="_blank" style="text-decoration: none;">
-                                <img src="https://demande-a-fred.github.io/ESAL_Pic/facebook.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
-                            </a>
-                            <a href="https://www.linkedin.com/school/ecole-superieure-dart-de-lorraine/" target="_blank" style="text-decoration: none;">
-                                <img src="https://demande-a-fred.github.io/ESAL_Pic/linkedin.png" width="20" height="20" style="display: inline-block; border: none; margin-right: 3px;">
-                            </a>
-                            <a href="https://www.youtube.com/@esalorraine/videos" target="_blank" style="text-decoration: none;">
-                                <img src="https://demande-a-fred.github.io/ESAL_Pic/youtube.png" width="28" height="20" style="display: inline-block; border: none; margin-right: 3px;">
-                            </a>
-                            <a href="https://vimeo.com/esal" target="_blank" style="text-decoration: none;">
-                                <img src="https://demande-a-fred.github.io/ESAL_Pic/vimeo.png" width="20" height="20" style="display: inline-block; border: none;">
-                            </a>
-                        </td>
+    ${site.reseaux}
+</td>
                         <td style="width: 460px;"></td>
                     </tr>
                 </tbody>
@@ -328,45 +418,45 @@ const telString = tel ? ` <b>|</b> ${tel}` : "";
 
 
         document.getElementById('check-font-btn').addEventListener('click', async () => {
-    const resultDiv = document.getElementById('font-result');
-    resultDiv.style.display = 'block'; // On affiche la boîte
-    resultDiv.innerHTML = "⏳ Vérification en cours... (Acceptez la demande du navigateur si elle s'affiche en haut à gauche).";
+            const resultDiv = document.getElementById('font-result');
+            resultDiv.style.display = 'block'; // On affiche la boîte
+            resultDiv.innerHTML = "⏳ Vérification en cours... (Acceptez la demande du navigateur si elle s'affiche en haut à gauche).";
 
-    try {
-        // 1. On vérifie si le navigateur supporte l'API
-        if (!window.queryLocalFonts) {
-            resultDiv.innerHTML = "❌ <strong>API non supportée.</strong><br>Veuillez utiliser Google Chrome ou Microsoft Edge pour effectuer ce test.";
-            return;
-        }
+            try {
+                // 1. On vérifie si le navigateur supporte l'API
+                if (!window.queryLocalFonts) {
+                    resultDiv.innerHTML = "❌ <strong>API non supportée.</strong><br>Veuillez utiliser Google Chrome ou Microsoft Edge pour effectuer ce test.";
+                    return;
+                }
 
-        // 2. On interroge le système
-        const localFonts = await window.queryLocalFonts();
-        
-        // 3. On filtre pour la typo de l'école
-        const myFonts = localFonts.filter(font => font.family.toLowerCase().includes("messine"));
+                // 2. On interroge le système
+                const localFonts = await window.queryLocalFonts();
 
-        if (myFonts.length > 0) {
-            // On utilise un "Set" pour enlever les doublons (si Regular, Bold et Italic partagent le même nom de famille)
-            const familyNames = [...new Set(myFonts.map(f => f.family))];
-            
-            let html = "✅ <strong>Super ! La typographie est bien installée sur cet ordinateur.</strong><br>Voici les noms système détectés :<ul>";
-            familyNames.forEach(name => {
-                html += `<li><code>${name}</code></li>`;
-            });
-            html += "</ul><p style='margin-bottom:0; font-size:12px; color:#666;'>C'est le nom exact qui est utilisé dans le code de la signature.</p>";
-            
-            resultDiv.innerHTML = html;
-            resultDiv.style.borderLeft = "4px solid #28a745"; // Petite barre verte
-        } else {
-            resultDiv.innerHTML = "❌ <strong>Typographie introuvable.</strong><br>La police 'Messine' ne semble pas être installée sur ce poste. La signature utilisera l'Arial ou l'Helvetica par défaut.";
-            resultDiv.style.borderLeft = "4px solid #dc3545"; // Petite barre rouge
-        }
-    } catch (err) {
-        resultDiv.innerHTML = "⚠️ <strong>Permission refusée.</strong><br>Vous devez autoriser le navigateur à lire les polices locales pour faire ce test.";
-        resultDiv.style.borderLeft = "4px solid #ffc107"; // Petite barre jaune
-        console.error(err);
-    }
-});
+                // 3. On filtre pour la typo de l'école
+                const myFonts = localFonts.filter(font => font.family.toLowerCase().includes("messine"));
+
+                if (myFonts.length > 0) {
+                    // On utilise un "Set" pour enlever les doublons (si Regular, Bold et Italic partagent le même nom de famille)
+                    const familyNames = [...new Set(myFonts.map(f => f.family))];
+
+                    let html = "✅ <strong>Super ! La typographie est bien installée sur cet ordinateur.</strong><br>Voici les noms système détectés :<ul>";
+                    familyNames.forEach(name => {
+                        html += `<li><code>${name}</code></li>`;
+                    });
+                    html += "</ul><p style='margin-bottom:0; font-size:12px; color:#666;'>C'est le nom exact qui est utilisé dans le code de la signature.</p>";
+
+                    resultDiv.innerHTML = html;
+                    resultDiv.style.borderLeft = "4px solid #28a745"; // Petite barre verte
+                } else {
+                    resultDiv.innerHTML = "❌ <strong>Typographie introuvable.</strong><br>La police 'Messine' ne semble pas être installée sur ce poste. La signature utilisera l'Arial ou l'Helvetica par défaut.";
+                    resultDiv.style.borderLeft = "4px solid #dc3545"; // Petite barre rouge
+                }
+            } catch (err) {
+                resultDiv.innerHTML = "⚠️ <strong>Permission refusée.</strong><br>Vous devez autoriser le navigateur à lire les polices locales pour faire ce test.";
+                resultDiv.style.borderLeft = "4px solid #ffc107"; // Petite barre jaune
+                console.error(err);
+            }
+        });
     </script>
 </body>
 
