@@ -103,7 +103,7 @@
 
         <div class="form-group">
             <label for="input-tel">Téléphone</label>
-            <input type="text" id="input-tel" placeholder="Ex: 06 12 34 56 78">
+            <input type="text" id="input-tel" placeholder="Ex: 0612345678 (sera converti en +33 x xx xx xx xx)">
         </div>
 
         <div class="form-group">
@@ -115,6 +115,16 @@
                 <option value="pmd">Pôle musique et danse</option>
             </select>
         </div>
+            <div>
+        <!-- Bouton de diagnostic -->
+<button id="check-font-btn" style="margin-top: 20px; padding: 10px 15px; font-size: 14px; background-color: #c7c7c7; color: rgb(0, 0, 0); border: none; border-radius: 5px; cursor: pointer;">
+    🔍 Vérifier l'installation de la typo "Messine"
+</button>
+
+<!-- Zone où le résultat s'affichera (masquée par défaut) -->
+<div id="font-result" style="margin-top: 15px; padding: 15px; background: #fff; border: 1px solid #ccc; border-radius: 5px; display: none; font-size: 14px;">
+</div>
+    </div>
     </div>
 
     <div id="preview-section">
@@ -134,12 +144,12 @@
             metz: {
                 ligne1: "École Supérieure d’Art de Lorraine <b>|</b> EPCC ÉSAL Metz – Épinal",
                 ligne2: "Pôle arts plastiques, Metz <b>|</b> 1, rue de la Citadelle, 57000 Metz – FR",
-                ligne3: "03 87 39 61 30 <b>|</b> <a href=\"mailto:metz@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>metz@esalorraine.fr</u></a>"
+                ligne3: "+33 3 87 39 61 30 <b>|</b> <a href=\"mailto:metz@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>metz@esalorraine.fr</u></a>"
             },
             epinal: {
                 ligne1: "École Supérieure d’Art de Lorraine <b>|</b> EPCC ESAL Metz – Épinal",
                 ligne2: "Pôle arts plastiques, Épinal <b>|</b> 15, rue des jardiniers, 88000 Épinal — FR",
-                ligne3: "03 29 68 50 66 <b>|</b> <a href=\"mailto:epinal@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>epinal@esalorraine.fr</u></a>"
+                ligne3: "+33 3 29 68 50 66 <b>|</b> <a href=\"mailto:epinal@esalorraine.fr\" style=\"color: #5412fa; text-decoration: none;\"><u>epinal@esalorraine.fr</u></a>"
             },
             pmd: {
                 ligne1: "École Supérieure d’Art de Lorraine <b>|</b> EPCC ESAL Metz – Épinal",
@@ -205,14 +215,14 @@ const telString = tel ? ` <b>|</b> ${tel}` : "";
                             <img src="https://demande-a-fred.github.io/ESAL_Pic/ESAL.gif" alt="Logo École Supérieure d'Art de Lorraine" width="152" style="width: 152px; display: block; border: none; margin: 0;">
                         </td>
                         <td valign="top" style="width: 460px; padding-right: 7px; padding-left: 7px;">
-                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne', sans-serif; font-size: 12px; color: #000000;">
-                                <b>${prenom} ${nom} | ${fonction}</b>
+                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', sans-serif; font-size: 12px; color: #000000;font-weight:bolder">
+                                ${prenom} ${nom} | ${fonction}
                             </p>
-                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne', sans-serif; font-size: 12px; color: #000000;">
-                                <b><a href="mailto:${email}" style="color: #000000; text-decoration: none;">${email}</a>${telString}</b>
+                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', sans-serif; font-size: 12px; color: #000000;font-weight:bolder">
+                                <a href="mailto:${email}" style="color: #000000; text-decoration: none;">${email}</a>${telString}
                             </p>
-                            <p style="margin: 5px 0 10px 0; font-family: 'Messine Quotidienne', sans-serif; font-size: 9px; color: #666666;">
-                                <i>Afin de préserver notre environnement, merci de n’imprimer ou d’archiver ce mail qu’en cas de nécessité.</i>
+                            <p style="margin: 5px 0 10px 0; font-family: 'Messine Quotidienne Italique', sans-serif; font-size: 9px; color: #666666; font-style:italic;">
+                                Afin de préserver notre environnement, merci de n’imprimer ou d’archiver ce mail qu’en cas de nécessité.
                             </p>
                         </td>
                     </tr>
@@ -314,6 +324,49 @@ const telString = tel ? ` <b>|</b> ${tel}` : "";
                 alert("Erreur lors de la copie.");
             }
         });
+
+
+
+        document.getElementById('check-font-btn').addEventListener('click', async () => {
+    const resultDiv = document.getElementById('font-result');
+    resultDiv.style.display = 'block'; // On affiche la boîte
+    resultDiv.innerHTML = "⏳ Vérification en cours... (Acceptez la demande du navigateur si elle s'affiche en haut à gauche).";
+
+    try {
+        // 1. On vérifie si le navigateur supporte l'API
+        if (!window.queryLocalFonts) {
+            resultDiv.innerHTML = "❌ <strong>API non supportée.</strong><br>Veuillez utiliser Google Chrome ou Microsoft Edge pour effectuer ce test.";
+            return;
+        }
+
+        // 2. On interroge le système
+        const localFonts = await window.queryLocalFonts();
+        
+        // 3. On filtre pour la typo de l'école
+        const myFonts = localFonts.filter(font => font.family.toLowerCase().includes("messine"));
+
+        if (myFonts.length > 0) {
+            // On utilise un "Set" pour enlever les doublons (si Regular, Bold et Italic partagent le même nom de famille)
+            const familyNames = [...new Set(myFonts.map(f => f.family))];
+            
+            let html = "✅ <strong>Super ! La typographie est bien installée sur cet ordinateur.</strong><br>Voici les noms système détectés :<ul>";
+            familyNames.forEach(name => {
+                html += `<li><code>${name}</code></li>`;
+            });
+            html += "</ul><p style='margin-bottom:0; font-size:12px; color:#666;'>C'est le nom exact qui est utilisé dans le code de la signature.</p>";
+            
+            resultDiv.innerHTML = html;
+            resultDiv.style.borderLeft = "4px solid #28a745"; // Petite barre verte
+        } else {
+            resultDiv.innerHTML = "❌ <strong>Typographie introuvable.</strong><br>La police 'Messine' ne semble pas être installée sur ce poste. La signature utilisera l'Arial ou l'Helvetica par défaut.";
+            resultDiv.style.borderLeft = "4px solid #dc3545"; // Petite barre rouge
+        }
+    } catch (err) {
+        resultDiv.innerHTML = "⚠️ <strong>Permission refusée.</strong><br>Vous devez autoriser le navigateur à lire les polices locales pour faire ce test.";
+        resultDiv.style.borderLeft = "4px solid #ffc107"; // Petite barre jaune
+        console.error(err);
+    }
+});
     </script>
 </body>
 
