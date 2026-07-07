@@ -285,7 +285,7 @@
             const siteKey = document.getElementById('input-site').value;
             const fonction2 = document.getElementById('input-fonction2').value.trim();
             const fonction2Block = fonction2 ? `
-<p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', 'Messine-QuotidienneGras',sans-serif; font-size: 12px; color: #000000; font-weight: bolder;">
+<p style="margin: 0 0 3px 0; font-family: &quot;Messine Quotidienne Gras&quot;, &quot;Messine-QuotidienneGras&quot;,sans-serif; font-size: 12px; color: #000000; font-weight: bolder;">
     ${fonction2}
 </p>` : "";
 
@@ -295,10 +295,10 @@
             if (tel1 && tel2) {
                 // Cas : 2 numéros (Email sur ligne 1, Numéros sur ligne 2)
                 contactBlock = `
-        <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', 'Messine-QuotidienneGras',sans-serif; font-size: 12px; color: #000000; font-weight:bolder;">
+        <p style="margin: 0 0 3px 0; font-family: &quot;Messine Quotidienne Gras&quot;, &quot;Messine-QuotidienneGras&quot;,sans-serif; font-size: 12px; color: #000000; font-weight:bolder;">
             <a href="mailto:${email}" style="color: #000000; text-decoration: none;">${email}</a>
         </p>
-        <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', 'Messine-QuotidienneGras', sans-serif; font-size: 12px; color: #000000; font-weight:bold;">
+        <p style="margin: 0 0 3px 0; font-family: &quot;Messine Quotidienne Gras&quot;, &quot;Messine-QuotidienneGras&quot;, sans-serif; font-size: 12px; color: #000000; font-weight:bold;">
             ${tel1} | ${tel2}
         </p>
     `;
@@ -306,14 +306,14 @@
                 // Cas : 1 seul numéro (Tout sur 1 ligne)
                 const singleTel = tel1 || tel2;
                 contactBlock = `
-        <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', 'Messine-QuotidienneGras', sans-serif; font-size: 12px; color: #000000; font-weight:bold;">
+        <p style="margin: 0 0 3px 0; font-family: &quot;Messine Quotidienne Gras&quot;, &quot;Messine-QuotidienneGras&quot;, sans-serif; font-size: 12px; color: #000000; font-weight:bold;">
             <a href="mailto:${email}" style="color: #000000; text-decoration: none;">${email}</a> | ${singleTel}
         </p>
     `;
             } else {
                 // Cas : 0 numéro (Juste l'email)
                 contactBlock = `
-        <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', 'Messine-QuotidienneGras', sans-serif; font-size: 12px; color: #000000; font-weight:bold;">
+        <p style="margin: 0 0 3px 0; font-family: &quot;Messine Quotidienne Gras&quot;, &quot;Messine-QuotidienneGras&quot;, sans-serif; font-size: 12px; color: #000000; font-weight:bold;">
             <a href="mailto:${email}" style="color: #000000; text-decoration: none;">${email}</a>
         </p>
     `;
@@ -329,28 +329,28 @@
                             <img src="${baseUrl}ESAL.gif" alt="Logo École Supérieure d'Art de Lorraine" width="152" style="width: 152px; display: block; border: none; margin: 0;">
                         </td>
                         <td valign="top" style="width: 460px; padding-right: 7px; padding-left: 7px;">
-                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne Gras', 'Messine-QuotidienneGras', sans-serif; font-size: 12px; color: #000000;font-weight:bold">
+                            <p style="margin: 0 0 3px 0; font-family: &quot;Messine Quotidienne Gras&quot;, &quot;Messine-QuotidienneGras&quot;, sans-serif; font-size: 12px; color: #000000;font-weight:bold">
                                 ${prenom} ${nom} | ${fonction}
                             </p>
                             ${fonction2Block}
                             ${contactBlock}
-                            <p style="margin: 5px 0 10px 0; font-family: 'Messine Quotidienne Italique', 'Messine-QuotidienneItalique', sans-serif; font-size: 9px; color: #666666; font-style:italic;">
+                            <p style="margin: 5px 0 10px 0; font-family: &quot;Messine Quotidienne Italique&quot;, &quot;Messine-QuotidienneItalique&quot;, sans-serif; font-size: 9px; color: #666666; font-style:italic;">
                                 Afin de préserver notre environnement, merci de n’imprimer ou d’archiver ce mail qu’en cas de nécessité.
                             </p>
                         </td>
                     </tr>
                     <tr>
                         <td valign="top" style="width: 460px; padding-right: 7px; padding-left: 7px;">
-                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne', 'Messine-Quotidienne', sans-serif; font-size: 12px; color: #000000;">
+                            <p style="margin: 0 0 3px 0; font-family: &quot;Messine Quotidienne&quot;, &quot;Messine-Quotidienne&quot;, sans-serif; font-size: 12px; color: #000000;">
                                 ${site.ligne1}
                             </p>
-                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne', 'Messine-Quotidienne',sans-serif; font-size: 12px; color: #000000;">
+                            <p style="margin: 0 0 3px 0; font-family: &quot;Messine Quotidienne&quot;, &quot;Messine-Quotidienne&quot;,sans-serif; font-size: 12px; color: #000000;">
                                 ${site.ligne2}
                             </p>
-                            <p style="margin: 0 0 3px 0; font-family: 'Messine Quotidienne', 'Messine-Quotidienne',sans-serif; font-size: 12px; color: #000000;">
+                            <p style="margin: 0 0 3px 0; font-family: &quot;Messine Quotidienne&quot;, &quot;Messine-Quotidienne&quot;,sans-serif; font-size: 12px; color: #000000;">
                                 ${site.ligne3}
                             </p>
-                            <p style="margin: 0; font-family: 'Messine Quotidienne', 'Messine-Quotidienne',sans-serif; font-size: 12px; color: #000000;">
+                            <p style="margin: 0; font-family: &quot;Messine Quotidienne&quot;, &quot;Messine-Quotidienne&quot;,sans-serif; font-size: 12px; color: #000000;">
                                 <a href="http://www.esalorraine.fr/" style="color: #000000; text-decoration: none;"><u>www.esalorraine.fr</u></a> <b>|</b> <a href="http://eepurl.com/c9fBQP" style="color: #000000; text-decoration: none;"><u>Newsletter</u></a>
                             </p>
                         </td>
