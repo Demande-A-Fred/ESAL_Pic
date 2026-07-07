@@ -405,7 +405,7 @@
         // 5. Initialisation au premier chargement
         updateSignature();
 
-        // 6. Logique de copie (identique à avant)
+        /*
         document.getElementById('copy-btn').addEventListener('click', async () => {
             const container = document.getElementById('preview-container');
             const htmlContent = container.innerHTML;
@@ -437,8 +437,63 @@
                 alert("Erreur lors de la copie.");
             }
         });
+*/
+document.getElementById('copy-btn').addEventListener('click', async () => {
+    const container = document.getElementById('preview-container');
+    const htmlContent = container.innerHTML;
+    const textContent = container.innerText;
+    const btn = document.getElementById('copy-btn');
+    const originalText = btn.innerText;
 
+    // Petite fonction pour gérer l'animation du bouton (pour ne pas répéter le code)
+    const successFeedback = () => {
+        btn.innerText = "✓ Copiée avec succès !";
+        btn.style.backgroundColor = "#28a745";
+        setTimeout(() => {
+            btn.innerText = originalText;
+            btn.style.backgroundColor = "#5412fa"; // Remets la couleur de ton bouton d'origine ici
+        }, 3000);
+    };
 
+    // Détection magique : Est-on sur Safari ? (Chrome sur Mac ne sera pas détecté comme Safari)
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+    if (isSafari) {
+        // --- CAS 1 : SAFARI (Méthode Old School visuelle pour déclencher le format RTF d'Apple) ---
+        try {
+            const range = document.createRange();
+            range.selectNodeContents(container);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            
+            document.execCommand('copy');
+            selection.removeAllRanges(); // On nettoie la sélection à l'écran
+            
+            successFeedback();
+        } catch (err) {
+            console.error("Échec Safari : ", err);
+            alert("Erreur de copie. Veuillez sélectionner avec la souris et faire Cmd+C.");
+        }
+    } else {
+        // --- CAS 2 : CHROME / EDGE / FIREFOX (Ta méthode moderne et infaillible) ---
+        try {
+            const htmlBlob = new Blob([htmlContent], { type: 'text/html' });
+            const textBlob = new Blob([textContent], { type: 'text/plain' });
+
+            const data = [new ClipboardItem({
+                'text/html': htmlBlob,
+                'text/plain': textBlob
+            })];
+
+            await navigator.clipboard.write(data);
+            successFeedback();
+        } catch (err) {
+            console.error("Échec de la copie moderne : ", err);
+            alert("Erreur lors de la copie.");
+        }
+    }
+});
 
         document.getElementById('check-font-btn').addEventListener('click', async () => {
             const resultDiv = document.getElementById('font-result');
